@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>sign up</title>
+    <script th:src="@{'/static/jquery/jquery-3.5.1.min.js'}" charset="UTF-8" th:inline="javascript"></script>
+    <!--    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+    <style>
+        .err { color:red }
+    </style>
+     <script th:inline="javascript">
+     //이메일 입력 방식
+     $(function(){
+         $("#selectEmail").change(function(){
+             $("#selectEmail option:selected").each(function(){
+                 console.log("selectEmail");
+                 if($(this).val()=='etc'){ //선택해서 할경우
+                     $("#userDomainPart").val('');  //초기화
+                     $("#userDomainPart").attr("disabled",false); //활성화됨
+                 }else{
+                     console.log("비활성화");
+                     $("#userDomainPart").val($(this).text());   //이메일 선택해서 입력시
+                     $("#userDomainPart").attr("disabled",true);  //비활성화됨
+                     console.log("비활성화2");
+                 }
+             });
+         });
+     });
+     </script>
+</head>
+<body>
+<h1>회원가입 페이지</h1> <hr>
+<!--<div th:if="${#fields.hasAnyErrors()}">-->
+<!--    <p th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+
+<!--</div>-->
+<form th:action="@{/user}" method="POST" th:object="${infoDTO}">
+    <!--    <div th:if="${#fields.hasAnyErrors()}">-->
+    <!--        <p th:each="err : ${#fields.allErrors()}" th:text="${err}">...</p>-->
+    <!--    </div>-->
+    <hr>
+
+        아이디 : <input type="text" id="id" th:field="*{id}" >
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('id')}" th:errors="*{id}" />
+        <br>
+
+        비밀번호 : <input type="password" id="userPw" name="userPw">
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" />
+        <br>
+
+        이메일 : <input type="text" id="userLocalPart" name="userLocalPart" placeholder="이메일을 입력해주세요."/>@
+        <input type="text" id="userDomainPart" name="userDomainPart" placeholder="이메일을 입력해주세요." disabled>
+        <select name="userDomainChoicePart" id="selectEmail">
+            <option value="notSelected">선택하세요</option>
+            <option value="etc">직접입력</option>
+            <option value="naver.com">naver.com</option>
+            <option value="nate.com">nate.com</option>
+            <option value="empal.com">empal.com</option>
+            <option value="hotmail.com">hotmail.com</option>
+            <option value="lycos.co.kr">lycos.co.kr</option>
+            <option value="msn.com">msn.com</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="yahoo.com">yahoo.com</option>
+            <option value="korea.com">korea.com</option>
+            <option value="kornet.net">kornet.net</option>
+            <option value="yahoo.co.kr">yahoo.co.kr</option>
+            <option value="kebi.com">kebi.com</option>
+            <option value="orgio.net">orgio.net</option>
+            <option value="paran.com">paran.com</option>
+            <option value="gmail.com">gmail.com</option>
+        </select>
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userLocalPart')}" th:errors="*{userLocalPart}" />
+        <span class="err" th:if="${#fields.hasErrors('userDomainPart')}" th:errors="*{userDomainPart}" />
+        <span class="err" th:if="${#fields.hasErrors('userDomainChoicePart')}" th:errors="*{userDomainChoicePart}" />
+        <br />
+        이름   : <input type="text" id="userName" name="userName">
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" />
+        <br>
+
+        연락처 : <input type="text" id="userCarrierNum" name = "userCarrierNum"  size="4" placeholder="연락처를 입력해주세요">-
+        <input type="text" id="userAssignmentNum" name = "userAssignmentNum"  size="7" placeholder="연락처를 입력해주세요">-
+        <input type="text" name = "userRanNum"  size="7" placeholder="연락처를 입력해주세요"><br>
+        <span class="err" th:if="${#fields.hasErrors('userCarrierNum')}" th:errors="*{userCarrierNum}" />
+        <span class="err" th:if="${#fields.hasErrors('userAssignmentNum')}" th:errors="*{userAssignmentNum}" />
+        <span class="err" th:if="${#fields.hasErrors('userRanNum')}" th:errors="*{userRanNum}" />
+        <br>
+
+        키   : <input type="text" name="userHeight">
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userHeight')}" th:errors="*{userHeight}" />
+        <br>
+
+        나이   : <input type="text" name="userAge">
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userAge')}" th:errors="*{userAge}" />
+        <br>
+        성별 : <input type="radio" name = "userSex" value="남자">남성
+              <input type="radio" name = "userSex"  value="여자">여성 <br>
+        <span class="err" th:if="${#fields.hasErrors('userSex')}" th:errors="*{userSex}" />
+        <br>
+        혈액형 : <input type="radio" name = "userBlood" value="A">A형
+        <input type="radio" name = "userBlood"  value="B">B형
+        <input type="radio" name = "userBlood"  value="O">O형
+        <input type="radio" name = "userBlood" value="AB">AB형<br/>
+        <span class="err" th:if="${#fields.hasErrors('userBlood')}" th:errors="*{userBlood}" />
+        <br>
+        종교 : <select name="userReligion">
+        <option value="">선택하세요</option>
+        <option value="무교">무교</option>
+        <option value="기독교">기독교</option>
+        <option value="카톨릭교">카톨릭교</option>
+        <option value="불교">불교</option>
+        <option value="원불교">원불교</option>
+        <option value="옴진리교">옴진리교</option>
+        <option value="시트교">시트교</option>
+        </select>
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userReligion')}" th:errors="*{userReligion}" />
+
+        <br>
+        음주: <input type="radio" name="userDrunk" value="안마신다">안마신다
+        <input type="radio" name="userDrunk" value="가끔">가끔
+        <input type="radio" name="userDrunk" value="자주">자주
+        <br/>
+        <span class="err" th:if="${#fields.hasErrors('userDrunk')}" th:errors="*{userDrunk}" />
+        <br>
+
+        흡연: <input type="radio" name="userSigar" value="흡연">흡연자
+        <input type="radio" name="userSigar" value="비흡연">비흡연자
+        <br>
+        <span class="err" th:if="${#fields.hasErrors('userSigar')}" th:errors="*{userSigar}" />
+        <br>
+
+        학력: <select name="userEducation">
+        <option value="">선택하세요</option>
+        <option value="중학교졸업">중졸</option>
+        <option value="고등학교졸업"> 고졸</option>
+        <option value="대학교2년">대학교(2년)졸업</option>
+        <option value="대학교4년">대학교(4년)졸업</option>
+        <option value="대학원재학">대학원 재학</option>
+        <option value="대학원졸업">대학원 졸업</option>
+        </select>
+            <br/>
+        <span class="err" th:if="${#fields.hasErrors('userEducation')}" th:errors="*{userEducation}" />
+        <br>
+        직업: <select name="userJob">
+        <option value="">선택하세요</option>
+        <option value="학생">학생</option>
+        <option value="컴퓨터/인터넷">컴퓨터/인터넷</option>
+        <option value="언론">언론</option>
+        <option value="공무원">공무원</option>
+        <option value="군인">군인</option>
+        <option value="서비스업">서비스업</option>
+        <option value="교육">교육</option>
+        <option value="금융/증권/보험업">금융/증권/보험업</option>
+        <option value="유통업">유통업</option>
+        <option value="예술">예술</option>
+        <option value="의료">의료</option>
+        <option value="미용">미용</option>
+    </select>
+        <br/>
+        <span class="err" th:if="${#fields.hasErrors('userJob')}" th:errors="*{userJob}" />
+        <br>
+        성격: <div class="checks">
+
+            <input type="checkbox" name="userPersonality"  value="pure">순수하다
+
+            <input type="checkbox" name="userPersonality" value="excited">활기차다
+
+            <input type="checkbox" name="userPersonality" value="Humorous">유머가있다
+
+            <input type="checkbox" name="userPersonality" value="cute">귀엽다
+
+            <input type="checkbox" name="userPersonality" value="Sincere">성실하다
+
+            <input type="checkbox" name="userPersonality" value="Cheerful">쾌할하다
+
+            <input type="checkbox" name="userPersonality" value="clean">깔끔하다
+        </div><br>
+        <span class="err" th:if="${#fields.hasErrors('userPersonality')}" th:errors="*{userPersonality}" />
+        <br>
+        자기소개<br/>
+        <textarea style="resize: none;" name="userIntroduce" cols="60" rows="10.5"></textarea>
+        <span class="err" th:if="${#fields.hasErrors('userIntroduce')}" th:errors="*{userIntroduce}" />
+        <br>
+
+    <input type="radio" name="userAuth" value="ROLE_ADMIN,ROLE_USER"> 관리자회원
+    <input type="radio" name="userAuth" value="ROLE_USER" checked="checked"> 일반회원 <br>
+    <button type="submit">가입</button>
+</form> <br>
+
+<a href="/login">로그인 →</a>
+</body>
+</html>
