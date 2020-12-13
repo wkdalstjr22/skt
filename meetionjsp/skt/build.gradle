@@ -27,9 +27,7 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'junit:junit:4.12'
-	compile("org.springframework.boot:spring-boot-starter-mail")
 	compile "org.springframework:spring-context-support"
-	compile "com.sun.mail:javax.mail"
 	compile 'org.projectlombok:lombok'
 	testCompile "org.projectlombok:lombok"
 	annotationProcessor('org.projectlombok:lombok')
