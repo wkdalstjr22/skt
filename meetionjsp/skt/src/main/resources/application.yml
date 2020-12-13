@@ -20,19 +20,6 @@ spring:
     static-locations: classpath:/static/
     add-mappings: true
 
-    spring:
-      mail:
-        host: smtp.gmail.com
-        port: 587
-        username: akstmrdlsla@gmail.com
-        password: wkd268425@
-        properties:
-          mail:
-            smtp:
-              auth: true
-              starttls:
-                enable: true
-
 logging:
   level:
     org.hibernate.SQL: debug
